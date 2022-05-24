@@ -5,12 +5,17 @@ import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 import org.d3if4401.galerihewan.model.Hewan
 import org.d3if4401.galerihewan.R
+import org.d3if4401.galerihewan.data.SettingDataStore
+import org.d3if4401.galerihewan.data.dataStore
 import org.d3if4401.galerihewan.databinding.FragmentMainBinding
 import kotlin.reflect.KProperty
 
@@ -23,6 +28,7 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var myAdapter: MainAdapter
     private var isLinearLayoutManager = true
+    private lateinit var layoutDataStore: SettingDataStore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +52,16 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        layoutDataStore = SettingDataStore(requireContext().dataStore)
+        layoutDataStore.preferenceFlow.asLiveData()
+            .observe(viewLifecycleOwner, { value ->
+                isLinearLayoutManager = value
+                chooseLayout()
+                activity?.invalidateOptionsMenu()
+            })
+
+
         viewModel.getData().observe(viewLifecycleOwner, {
             myAdapter.updateData(it)
         })
@@ -86,6 +102,13 @@ class MainFragment : Fragment() {
             R.id.action_switch_layout -> {
 // Sets isLinearLayoutManager to the opposite value
                 isLinearLayoutManager = !isLinearLayoutManager
+
+                lifecycleScope.launch {
+                    layoutDataStore.saveLayoutToPreferencesStore(
+                        isLinearLayoutManager, requireContext()
+                    )
+                }
+
 // Sets layout and icon
                 chooseLayout()
                 setIcon(item)
