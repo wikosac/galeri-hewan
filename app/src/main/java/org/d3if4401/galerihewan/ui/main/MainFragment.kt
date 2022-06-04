@@ -1,6 +1,7 @@
 package org.d3if4401.galerihewan.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,7 @@ class MainFragment : Fragment() {
             setHasFixedSize(true)
         }
         return binding.root
+        Log.i("MainActivity", "onCreateView dijalankan")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,6 +53,7 @@ class MainFragment : Fragment() {
         viewModel.getStatus().observe(viewLifecycleOwner, {
             updateProgress(it)
         })
+        Log.i("MainActivity", "onViewCreated dijalankan")
     }
 
     private fun updateProgress(status: ApiStatus) {
@@ -65,5 +68,40 @@ class MainFragment : Fragment() {
                 binding.networkError.visibility = View.VISIBLE
             }
         }
+    }
+
+    override fun onAttachFragment(childFragment: Fragment) {
+        super.onAttachFragment(childFragment)
+        Log.i("MainActivity", "onAttach dijalankan")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("MainActivity", "onResume dijalankan")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("MainActivity", "onPause dijalankan")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i("MainActivity", "onStop dijalankan")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.i("MainActivity", "onDestroyView dijalankan")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i("MainActivity", "onDestroy dijalankan")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.i("MainActivity", "onDetach dijalankan")
     }
 }
