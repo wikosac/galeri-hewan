@@ -1,5 +1,6 @@
 package org.d3if4401.galerihewan.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -41,7 +42,7 @@ class MainFragment : Fragment() {
             setHasFixedSize(true)
         }
         return binding.root
-        Log.i("MainActivity", "onCreateView dijalankan")
+        Log.i("MainFragment", "onCreateView dijalankan")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +54,7 @@ class MainFragment : Fragment() {
         viewModel.getStatus().observe(viewLifecycleOwner, {
             updateProgress(it)
         })
-        Log.i("MainActivity", "onViewCreated dijalankan")
+        Log.i("MainFragment", "onViewCreated dijalankan")
     }
 
     private fun updateProgress(status: ApiStatus) {
@@ -70,38 +71,38 @@ class MainFragment : Fragment() {
         }
     }
 
-    override fun onAttachFragment(childFragment: Fragment) {
-        super.onAttachFragment(childFragment)
-        Log.i("MainActivity", "onAttach dijalankan")
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.i("MainFragment", "onAttach dijalankan")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.i("MainActivity", "onResume dijalankan")
+        Log.i("MainFragment", "onResume dijalankan")
     }
 
     override fun onPause() {
         super.onPause()
-        Log.i("MainActivity", "onPause dijalankan")
+        Log.i("MainFragment", "onPause dijalankan")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.i("MainActivity", "onStop dijalankan")
+        Log.i("MainFragment", "onStop dijalankan")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.i("MainActivity", "onDestroyView dijalankan")
+        Log.i("MainFragment", "onDestroyView dijalankan")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.i("MainActivity", "onDestroy dijalankan")
+        Log.i("MainFragment", "onDestroy dijalankan")
     }
 
     override fun onDetach() {
         super.onDetach()
-        Log.i("MainActivity", "onDetach dijalankan")
+        Log.i("MainFragment", "onDetach dijalankan")
     }
 }
