@@ -11,6 +11,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.d3if4401.galerihewan.MainActivity
 import org.d3if4401.galerihewan.R
 import org.d3if4401.galerihewan.model.Hewan
 import org.d3if4401.galerihewan.network.ApiStatus
@@ -48,7 +49,7 @@ class MainViewModel : ViewModel() {
             .setInitialDelay(1, TimeUnit.MINUTES)
             .build()
         WorkManager.getInstance(app).enqueueUniqueWork(
-            "updater",
+            MainActivity.CHANNEL_ID,
             ExistingWorkPolicy.REPLACE,
             request
         )
